@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
     depends_on:
       db:
-        condition: service_healthy  # Wait for DB to be ready
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:
@@ -16,7 +16,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${DB_NAME}
       - SPRING_DATASOURCE_USERNAME=${DB_AUTH_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DB_AUTH_PASSWORD}
-      - JAVA_OPTS=-XX:MaxRAMPercentage=75.0 -Xms256m  # Match Dockerfile JVM settings
+      - JAVA_OPTS=-XX:MaxRAMPercentage=75.0 -Xms256m
     networks:
       - app-network
 #    healthcheck:
@@ -64,29 +64,28 @@ services:
       KC_DB_URL: jdbc:postgresql://db:5432/${KEYCLOAK_DB}
       KC_DB_USERNAME: ${KEYCLOAK_DB_USER}
       KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
-      KC_HOSTNAME: keycloak
-      KC_PROXY: edge
+      KC_HOSTNAME: localhost
+      KC_PROXY_HEADERS : forwarded
+      KEYCLOAK_ENABLE_HEALTH_ENDPOINTS: 'true'
+      KEYCLOAK_DATABASE_SCHEMA: public
+      KC_HTTP_RELATIVE_PATH: /
+      KC_LOG: console
       KC_HTTP_ENABLED: "true"
     ports:
       - "8090:8080"
     networks:
       - app-network
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://localhost:8080/health/ready" ]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 10
-    command: [ "start-dev", "--import-realm" ]
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health/ready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    command: ["start-dev", "--verbose", "--import-realm"]
     volumes:
       - ./keycloak-config:/opt/keycloak/data/import
 
 volumes:
   pg-data:
-    driver: local
-    driver_opts:
-      type: none
-      device: ${PWD}/pg-data  # Uses current directory
-      o: bind
 
 networks:
   app-network:

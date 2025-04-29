@@ -10,6 +10,7 @@
       "redirectUris": ["http://localhost:8080/*"],
       "webOrigins": ["http://localhost:8080"],
       "publicClient": false,
+      "secret": "HISAfCnAI0mPYcC63qfyEmU8MJhNoZmw",
       "authorizationServicesEnabled": true,
       "serviceAccountsEnabled": true,
       "directAccessGrantsEnabled": true
