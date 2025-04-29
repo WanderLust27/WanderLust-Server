@@ -1,0 +1,32 @@
+{
+  "realm": "wanderlust-realm",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "spring-app-client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "secret": "your-client-secret",
+      "redirectUris": ["http://localhost:8080/*"],
+      "webOrigins": ["http://localhost:8080"],
+      "publicClient": false,
+      "secret": "HISAfCnAI0mPYcC63qfyEmU8MJhNoZmw",
+      "authorizationServicesEnabled": true,
+      "serviceAccountsEnabled": true,
+      "directAccessGrantsEnabled": true
+    }
+  ],
+  "users": [
+    {
+      "username": "testuser",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "testpass"
+        }
+      ]
+    }
+  ]
+}
+
