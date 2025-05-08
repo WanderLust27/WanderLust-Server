@@ -38,7 +38,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
       - POSTGRES_MULTIPLE_DATABASES=${KEYCLOAK_DB}
       - POSTGRES_MULTIPLE_USERS=${KEYCLOAK_DB_USER}:${KEYCLOAK_DB_PASSWORD}
-      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256f
     volumes:
       - pg-data:/var/lib/postgresql/data
       - ./postgresql/init-keycloak-db.sh:/docker-entrypoint-initdb.d/init-keycloak-db.sh
