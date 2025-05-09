@@ -1,4 +1,4 @@
-package com.wanderlust.wanderlust_app.config;
+package com.wanderlust.wanderlust_app.config.security;
 
 
 import com.wanderlust.wanderlust_app.utils.security.CustomUserDetailsService;

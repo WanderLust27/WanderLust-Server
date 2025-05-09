@@ -22,7 +22,10 @@ public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private String username;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+    @Column(name = "FAMILY_NAME")
+    private String familyName;
     private String email;
     private String password;
     @Column(name = "PHONE_NUMBER")
@@ -31,11 +34,10 @@ public abstract class User implements UserDetails {
     private LocalDateTime lastLogin;
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
-    @Column(name = "UPDATED_AT")
+    @Column(name = "UPDATED_AT"   )
     private LocalDateTime updatedAt;
     @Column(name = "DELETED_AT")
     private LocalDateTime deletedAt;
-
 
     @Override
     public List<GrantedAuthority> getAuthorities() {
@@ -44,9 +46,6 @@ public abstract class User implements UserDetails {
 
     public abstract String getUserRole();
 
-    public String getUsernameField(){
-        return username;
-    }
 
     @Override
     public String getPassword() {
