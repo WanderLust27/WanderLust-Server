@@ -53,9 +53,8 @@ public class SecurityConfig {
                 . authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/admin/**").hasRole( "admin")
-                        .requestMatchers("/maker/**").hasRole("maker")
-                        .requestMatchers("/taker/**").hasRole("taker")
-                        .requestMatchers("/member/**").authenticated()
+                        .requestMatchers("/business-owner/**").hasRole("BUSINESS_OWNER")
+                        .requestMatchers("/custom-role/**").hasRole("CUSTOM_ROLE")
                         .anyRequest().permitAll()
 
                 )
