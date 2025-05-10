@@ -72,14 +72,14 @@ public class AuthServiceImp implements AuthService {
         User user = createAppUser(registerDTO, keycloakUserId);
         userDAO.save(user);
 
-        TokensDTO tokens = getTokens(registerDTO.username(), registerDTO.password());
+        TokensDTO tokens = getTokens();
 
         return new AuthResponseDTO(user.getId(), tokens, user.getUserRole());
     }
 
     @Override
     public AuthResponseDTO login(LoginDTO loginDTO) {
-        TokensDTO tokens = getTokens(loginDTO.identifier(), loginDTO.password());
+        TokensDTO tokens = getTokens();
 
         User user = userDAO.findByEmail(loginDTO.identifier())
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -90,7 +90,7 @@ public class AuthServiceImp implements AuthService {
         return new AuthResponseDTO(user.getId(), tokens, user.getUserRole());
     }
 
-    private TokensDTO getTokens(String username, String password) {
+    private TokensDTO getTokens() {
         return WebClient.create()
                 .post()
                 .uri(tokenUri)
