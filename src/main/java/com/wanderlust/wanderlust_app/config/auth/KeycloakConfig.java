@@ -13,16 +13,16 @@ public class KeycloakConfig {
     private final String serverUrl;
     private final String adminUsername;
     private final String adminPassword;
+    private final String realm;
 
     public KeycloakConfig(
-            @Value("${keycloak.auth-server-url}") String serverUrl,
-            @Value("${keycloak.realm}") String realm,
-            @Value("${keycloak.client-id}") String clientId,
-            @Value("${keycloak.client-secret}") String clientSecret,
+            @Value("${KEYCLOAK_AUTH_SERVER_URL}") String serverUrl,
+            @Value("${KEYCLOAK_REALM}") String realm,
             @Value("${KEYCLOAK_ADMIN}") String adminUsername,
             @Value("${KEYCLOAK_ADMIN_PASSWORD}") String adminPassword
     ) {
         this.serverUrl = serverUrl;
+        this.realm = realm;
         this.adminUsername = adminUsername;
         this.adminPassword = adminPassword;
     }
@@ -31,10 +31,11 @@ public class KeycloakConfig {
     public Keycloak keycloakAdminClient() {
         return KeycloakBuilder.builder()
                 .serverUrl(serverUrl)
-                .realm("master")
+                .realm(realm)
                 .clientId("admin-cli")
                 .username(adminUsername)
                 .password(adminPassword)
                 .build();
     }
+
 }

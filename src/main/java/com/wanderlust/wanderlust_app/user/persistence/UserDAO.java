@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface UserDAO extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.email = :identifier OR u.phoneNumber = :identifier")
     Optional<User> findByEmailOrPhone(String identifier);
+    Optional<User> findByEmail(String identifier);
+    boolean existsByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
 }

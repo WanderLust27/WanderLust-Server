@@ -22,6 +22,7 @@ public abstract class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private String keycloakId;
     @Column(name = "FIRST_NAME")
     private String firstName;
     @Column(name = "FAMILY_NAME")
